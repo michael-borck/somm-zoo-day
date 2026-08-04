@@ -10,11 +10,11 @@
   :root{
     --cream:#FAF7F2; --sand:#E8E0D0; --teal:#1B3A4B; --teal-light:#2E5569;
     --teal-dark:#0F2530; --terracotta:#C96B2F; --terracotta-dark:#A5551F;
-    --amber:#D4A017; --surface:#fff; --ink:#1B3A4B; --ink-soft:#415865;
+    --surface:#fff; --ink:#1B3A4B; --ink-soft:#415865;
     --rule:#E8E0D0; --focus:#C96B2F;
-    /* Selected chips and the skip link paint ink ON a solid fill. They need
-       their own pair: --teal inverts between modes, so reusing it here put
-       white text on a light background in dark mode. */
+    /* Anything painting ink ON a solid fill needs its own pair: --teal inverts
+       between colour schemes, so reusing it here put white text on a light
+       background in dark mode. */
     --on-solid-bg:#1B3A4B; --on-solid-fg:#FFFFFF;
   }
   @media (prefers-color-scheme:dark){
@@ -39,13 +39,12 @@
   a{color:var(--terracotta-dark);text-decoration-thickness:1px}
   a:hover{text-decoration-thickness:2px}
   :focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:3px}
-  .skip{position:absolute;left:-9999px;top:0;background:var(--on-solid-bg);color:var(--on-solid-fg);
-    padding:.7rem 1.1rem;z-index:20;border-radius:0 0 8px 0}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--on-solid-bg);
+    color:var(--on-solid-fg);padding:.7rem 1.1rem;z-index:30;border-radius:0 0 8px 0}
   .skip:focus{left:0}
   .wrap{max-width:60rem;margin:0 auto;padding:0 clamp(1rem,4vw,2rem)}
   header.hero{background:var(--teal-dark);color:#fff;padding:clamp(2.2rem,6vw,3.6rem) 0 clamp(2rem,5vw,3rem)}
   header.hero h1{color:#fff}
-  header.hero a{color:#F3C39A}
   .eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
     color:#F3C39A;margin:0 0 .8rem}
   .lede{font-size:clamp(1.05rem,1rem + .35vw,1.25rem);color:#DCE6EB;max-width:44ch;margin:0}
@@ -53,30 +52,46 @@
   .events li{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.22);
     border-radius:999px;padding:.35rem .85rem;font-size:.85rem;color:#DCE6EB}
   section{padding:clamp(2.2rem,5vw,3.2rem) 0;border-top:1px solid var(--rule)}
-  section>.wrap>p:first-of-type{margin-top:.2rem}
   .sub{color:var(--ink-soft);max-width:62ch}
   .card{background:var(--surface);border:1px solid var(--rule);border-radius:14px;
     padding:clamp(1.1rem,3vw,1.6rem)}
-  .grid{display:grid;gap:1rem}
-  @media(min-width:46rem){.grid.two{grid-template-columns:1fr 1fr}}
   .cta{display:grid;gap:1.4rem;align-items:center}
   @media(min-width:44rem){.cta{grid-template-columns:1fr auto}}
   .btn{display:inline-block;background:var(--terracotta-dark);color:#fff;font-weight:600;
-    padding:.75rem 1.4rem;border-radius:9px;text-decoration:none;border:2px solid transparent}
+    padding:.75rem 1.4rem;border-radius:9px;text-decoration:none;border:2px solid transparent;
+    font-size:1rem;font-family:inherit;cursor:pointer}
   .btn:hover{background:var(--terracotta)}
   .btn.ghost{background:transparent;color:var(--terracotta-dark);border-color:var(--rule)}
   .btn.ghost:hover{background:var(--surface);border-color:var(--terracotta-dark)}
-  .qr{background:#fff;padding:.7rem;border-radius:12px;border:1px solid var(--sand);
-    width:max-content;margin-inline:auto}
-  .qr img{display:block;width:150px;height:150px}
-  .qr figcaption{font-size:.72rem;color:#415865;text-align:center;margin-top:.45rem;
-    word-break:break-all;max-width:150px}
-  ul.files{list-style:none;padding:0;margin:1.2rem 0 0;display:grid;gap:.7rem}
-  ul.files a{font-weight:600}
-  ul.files .meta{display:block;font-size:.86rem;color:var(--ink-soft);font-weight:400;margin-top:.15rem}
-  .badge{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.05em;
-    text-transform:uppercase;background:var(--sand);color:var(--teal);border-radius:5px;
-    padding:.12rem .45rem;margin-left:.35rem;vertical-align:.08em}
+
+  /* Two calls to action, side by side on anything wider than a phone. */
+  .ctarow{display:grid;gap:1rem;margin:1.6rem 0 0}
+  @media(min-width:48rem){.ctarow{grid-template-columns:1fr 1fr}}
+  .ctarow button{display:block;width:100%;text-align:left;background:var(--surface);
+    border:1.5px solid var(--rule);border-radius:14px;padding:1.15rem 1.3rem;cursor:pointer;
+    font-family:inherit;color:var(--ink)}
+  .ctarow button:hover{border-color:var(--terracotta-dark);background:var(--cream)}
+  .ctarow .t{display:block;font-family:Georgia,"Iowan Old Style",serif;font-size:1.15rem;
+    font-weight:600;color:var(--terracotta-dark);margin-bottom:.3rem}
+  .ctarow .s{display:block;font-size:.92rem;color:var(--ink-soft);line-height:1.5}
+  .ctarow .m{display:block;font-size:.78rem;color:var(--ink-soft);margin-top:.6rem;
+    text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+
+  /* --- overlays --- */
+  dialog{border:0;padding:0;background:transparent;max-width:min(46rem,94vw);width:100%}
+  dialog::backdrop{background:rgba(15,37,48,.62);backdrop-filter:blur(2px)}
+  .sheet{background:var(--cream);border:1px solid var(--rule);border-radius:16px;
+    max-height:88vh;display:flex;flex-direction:column;overflow:hidden}
+  .sheet header{display:flex;gap:1rem;align-items:flex-start;justify-content:space-between;
+    padding:1.3rem clamp(1.1rem,3vw,1.7rem) .9rem;border-bottom:1px solid var(--rule);
+    background:var(--surface)}
+  .sheet header p{margin:.4rem 0 0;font-size:.92rem;color:var(--ink-soft);max-width:52ch}
+  .sheet .body{overflow-y:auto;padding:1.2rem clamp(1.1rem,3vw,1.7rem) 1.6rem;
+    overscroll-behavior:contain}
+  .x{flex:0 0 auto;background:transparent;border:1.5px solid var(--rule);border-radius:8px;
+    width:2.2rem;height:2.2rem;font-size:1.15rem;line-height:1;cursor:pointer;color:var(--ink);
+    font-family:inherit}
+  .x:hover{border-color:var(--terracotta-dark);color:var(--terracotta-dark)}
 
   /* --- quiz --- */
   .q{border:1px solid var(--rule);border-radius:12px;background:var(--surface);
@@ -88,16 +103,18 @@
   .q .opts label{border:1.5px solid var(--rule);border-radius:8px;padding:.4rem .9rem;
     cursor:pointer;font-size:.92rem;background:var(--cream)}
   .q .opts input{margin-right:.4rem}
-  .q .opts label:has(input:checked){border-color:var(--teal);background:var(--sand);font-weight:600}
+  .q .opts label:has(input:checked){border-color:var(--ink);background:var(--sand);font-weight:600}
   .q .opts label:has(input:focus-visible){outline:3px solid var(--focus);outline-offset:2px}
   .verdict{margin:.8rem 0 0;font-size:.92rem;padding:.7rem .85rem;border-radius:8px;
     border-left:4px solid var(--rule);background:var(--cream)}
+  /* The word is what carries the result; the stripe only reinforces it. */
   .verdict[data-r="right"]{border-left-color:#2F7D62}
   .verdict[data-r="wrong"]{border-left-color:var(--terracotta-dark)}
   .verdict .mark{font-weight:700}
-  .score{font-size:1.05rem;font-weight:600;margin:1.2rem 0 0;padding:1rem 1.1rem;
+  .score{font-size:1.05rem;font-weight:600;margin:0 0 1.2rem;padding:1rem 1.1rem;
     background:var(--surface);border:1px solid var(--rule);border-radius:12px}
   .score p{font-weight:400;font-size:.95rem;color:var(--ink-soft);margin:.5rem 0 0}
+  .actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.1rem}
 
   /* --- coverage explorer --- */
   .types{display:flex;flex-wrap:wrap;gap:.5rem;padding:0;margin:1rem 0 0;list-style:none}
@@ -120,15 +137,30 @@
   td.n{width:9.5rem;text-align:right;font-variant-numeric:tabular-nums;padding-left:.8rem;
     white-space:nowrap;font-size:.85rem}
   .na{color:var(--ink-soft);font-style:italic}
+
+  .qr{background:#fff;padding:.7rem;border-radius:12px;border:1px solid var(--sand);
+    width:max-content;margin-inline:auto}
+  .qr img{display:block;width:158px;height:158px}
+  .qr figcaption{font-size:.8rem;color:#1B3A4B;text-align:center;margin-top:.5rem;
+    font-weight:600;max-width:158px}
+  ul.files{list-style:none;padding:0;margin:1.2rem 0 0;display:grid;gap:.7rem}
+  ul.files a{font-weight:600}
+  ul.files .meta{display:block;font-size:.86rem;color:var(--ink-soft);font-weight:400;margin-top:.15rem}
+  .badge{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.05em;
+    text-transform:uppercase;background:var(--sand);color:var(--ink);border-radius:5px;
+    padding:.12rem .45rem;margin-left:.35rem;vertical-align:.08em}
   footer{background:var(--teal-dark);color:#DCE6EB;padding:2.4rem 0;font-size:.92rem}
   footer a{color:#F3C39A}
   footer h2{color:#fff;font-size:1.05rem}
+  .who{margin:0 0 1rem}
+  .who strong{color:#fff}
+  .who span{color:#AFC1CC}
   .fine{font-size:.83rem;color:#AFC1CC;margin-top:1.4rem}
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
   @media print{
     header.hero,footer{background:#fff!important;color:#000!important}
-    header.hero h1,footer h2{color:#000!important}
-    .btn{border:1px solid #000;color:#000!important;background:#fff!important}
+    header.hero h1,header.hero .lede,footer h2,footer .who strong,footer .who span{color:#000!important}
+    .ctarow,.skip{display:none}
     a[href^="http"]::after{content:" (" attr(href) ")";font-size:.8em;word-break:break-all}
     section{page-break-inside:avoid}
   }
@@ -169,29 +201,22 @@
   </div>
 </section>
 
-<section id="quiz">
+<section id="try">
   <div class="wrap">
-    <h2>Could you have caught it?</h2>
-    <p class="sub">An early build of UDL Lens carried 21 UDL &ldquo;checkpoints&rdquo;. Sixteen of the codes were wrong — invented by a language model, plausibly worded, correctly numbered, confidently wrong. Four of the eight below are verbatim UDL 3.0. Four are not. No marks are recorded anywhere.</p>
-
-    <form id="quizForm" style="margin-top:1.5rem">
-      <div id="quizItems"></div>
-      <button class="btn" type="submit">Check my answers</button>
-      <button class="btn ghost" type="reset">Start again</button>
-    </form>
-    <div id="score" class="score" hidden tabindex="-1"></div>
-  </div>
-</section>
-
-<section id="coverage">
-  <div class="wrap">
-    <h2>What can your assessments actually show?</h2>
-    <p class="sub">A UDL guideline can only be evidenced by an assessment that puts it in play — an exam cannot show you much about collaboration. Choose the assessment types in one of your units and see how much of UDL 3.0 they can reach between them.</p>
-    <fieldset style="border:0;padding:0;margin:1.3rem 0 0;min-width:0">
-      <legend style="font-weight:600">Assessment types in this unit</legend>
-      <ul class="types" id="typeList"></ul>
-    </fieldset>
-    <div id="covResult" role="status"></div>
+    <h2>Two things to try</h2>
+    <p class="sub">Both run entirely in your browser. Nothing is recorded, nothing is sent anywhere, and there is no score to be embarrassed by.</p>
+    <div class="ctarow">
+      <button type="button" data-opens="quizDialog">
+        <span class="t">Could you have caught it?</span>
+        <span class="s">Eight UDL considerations. Four are real, four are invented — two of them verbatim from our own failed build.</span>
+        <span class="m">Two minutes</span>
+      </button>
+      <button type="button" data-opens="covDialog">
+        <span class="t">What can your assessments show?</span>
+        <span class="s">Pick the assessment types in one of your units and see how much of UDL 3.0 they can reach between them.</span>
+        <span class="m">One minute</span>
+      </button>
+    </div>
   </div>
 </section>
 
@@ -219,11 +244,11 @@
     <div class="cta">
       <div>
         <h2>Send this page to a colleague</h2>
-        <p class="sub">One link for the slides, the handouts and the tool. Nothing here needs a login.</p>
+        <p class="sub">One link for the slides, the handouts and the tool — <a href="https://slinkr.link/udl">slinkr.link/udl</a>. Nothing here needs a login.</p>
       </div>
       <figure class="qr">
-        <img src="assets/qr-companion.png" alt="QR code linking to this companion site">
-        <figcaption>michael-borck.github.io/somm-zoo-day</figcaption>
+        <img src="assets/qr-companion.png" alt="QR code linking to slinkr.link/udl, this companion site">
+        <figcaption>slinkr.link/udl</figcaption>
       </figure>
     </div>
   </div>
@@ -234,13 +259,54 @@
 <footer>
   <div class="wrap">
     <h2>Get in touch</h2>
-    <p><strong>Michael Borck</strong> · <a href="mailto:michael.borck@curtin.edu.au">michael.borck@curtin.edu.au</a><br>
-    <span style="color:#AFC1CC">The build and the AI design</span></p>
-    <p><strong>Luke Butcher</strong> · School of Management and Marketing<br>
-    <span style="color:#AFC1CC">UDL, pedagogy, and Assessment 2030</span></p>
+    <p class="who"><strong>Luke Butcher</strong> · School of Management and Marketing<br>
+    <span>UDL, pedagogy, and Assessment 2030</span></p>
+    <p class="who"><strong>Michael Borck</strong> · <a href="mailto:michael.borck@curtin.edu.au">michael.borck@curtin.edu.au</a><br>
+    <span>The build and the AI design</span></p>
     <p class="fine">UDL Guidelines 3.0 &copy; CAST (2024) · <a href="https://udlguidelines.cast.org/">udlguidelines.cast.org</a>. UDL Lens is an unfunded prototype built inside the School of Management and Marketing. The consideration mapping is a first pass and is being reviewed — treat its output as a prompt for a conversation, not a compliance score.</p>
   </div>
 </footer>
+
+<dialog id="quizDialog" aria-labelledby="quizTitle">
+  <div class="sheet">
+    <header>
+      <div>
+        <h2 id="quizTitle" style="margin:0">Could you have caught it?</h2>
+        <p>An early build of UDL Lens carried 21 UDL &ldquo;checkpoints&rdquo;. Sixteen of the codes were wrong — invented by a language model, plausibly worded, correctly numbered, confidently wrong. Four of the eight below are verbatim UDL 3.0. Four are not.</p>
+      </div>
+      <button type="button" class="x" data-close aria-label="Close">&times;</button>
+    </header>
+    <div class="body">
+      <div id="score" class="score" hidden tabindex="-1"></div>
+      <form id="quizForm">
+        <div id="quizItems"></div>
+        <div class="actions">
+          <button class="btn" type="submit">Check my answers</button>
+          <button class="btn ghost" type="reset">Start again</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="covDialog" aria-labelledby="covTitle">
+  <div class="sheet">
+    <header>
+      <div>
+        <h2 id="covTitle" style="margin:0">What can your assessments show?</h2>
+        <p>A UDL guideline can only be evidenced by an assessment that puts it in play — an exam cannot show you much about collaboration.</p>
+      </div>
+      <button type="button" class="x" data-close aria-label="Close">&times;</button>
+    </header>
+    <div class="body">
+      <fieldset style="border:0;padding:0;margin:0;min-width:0">
+        <legend style="font-weight:600">Assessment types in this unit</legend>
+        <ul class="types" id="typeList"></ul>
+      </fieldset>
+      <div id="covResult" role="status"></div>
+    </div>
+  </div>
+</dialog>
 
 <script id="coverageData" type="application/json">{
  "guidelines": [
@@ -457,18 +523,36 @@
 (function(){
   "use strict";
 
+  /* ---------------- Overlays ----------------
+     Native <dialog> so focus trapping, Esc, inertness of the page behind and
+     returning focus to the trigger are the browser's job, not ours. */
+  document.querySelectorAll("[data-opens]").forEach(function(trigger){
+    trigger.addEventListener("click", function(){
+      var dlg = document.getElementById(trigger.dataset.opens);
+      if (dlg && typeof dlg.showModal === "function") dlg.showModal();
+      else if (dlg) dlg.setAttribute("open", "");   // very old browsers: inline, still usable
+    });
+  });
+  document.querySelectorAll("dialog").forEach(function(dlg){
+    dlg.querySelectorAll("[data-close]").forEach(function(b){
+      b.addEventListener("click", function(){ dlg.close(); });
+    });
+    // Click outside the sheet closes. The dialog element itself fills the
+    // viewport, so a click landing on it rather than on .sheet is a backdrop click.
+    dlg.addEventListener("click", function(e){ if (e.target === dlg) dlg.close(); });
+  });
+
   /* ---------------- Quiz ----------------
-     Every item below is checkable against CAST's published UDL 3.0 table.
-     The two "invented" items marked historical are verbatim from the failed
-     build; the other two use codes that do not exist - guideline 4 stops at
-     4.2, guideline 9 stops at 9.4. */
+     Every item is checkable against CAST's published UDL 3.0 table. The two
+     marked historical are verbatim from the failed build; the others use codes
+     that do not exist - guideline 2 stops at 2.5, 4 at 4.2, 9 at 9.4. */
   var ITEMS = [
     {code:"8.3", text:"Foster collaboration, interdependence, and collective learning", real:true,
      why:"Real. Guideline 8, Sustaining Effort &amp; Persistence."},
     {code:"3.2", text:"Explicit success criteria and rubric", real:false,
      why:"Invented &mdash; and this one is verbatim from our own early build. CAST&rsquo;s 3.2 is &ldquo;Highlight and explore patterns, critical features, big ideas, and relationships&rdquo;. Reasonable assessment advice, attached to the wrong code."},
     {code:"7.3", text:"Nurture joy and play", real:true,
-     why:"Real, and it is the one people most often reject. Guideline 7, Welcoming Interests &amp; Identities."},
+     why:"Real, and the one people most often reject. Guideline 7, Welcoming Interests &amp; Identities."},
     {code:"4.3", text:"Technology requirements clearly stated", real:false,
      why:"Invented, also verbatim from the early build. Guideline 4 has exactly two considerations, 4.1 and 4.2. There is no 4.3 to be right or wrong about."},
     {code:"5.2", text:"Use multiple tools for construction, composition, and creativity", real:true,
@@ -527,7 +611,7 @@
     if (right === ITEMS.length) {
       msg = "All " + right + ". You either know the guidelines well or you looked them up — both of which are exactly the point.";
     } else if (right >= 6) {
-      msg = "You did better than most, and you still missed " + (ITEMS.length - right) + ".";
+      msg = "Better than most, and you still missed " + (ITEMS.length - right) + ".";
     } else {
       msg = "Which is roughly how everyone does, including the people who built the tool.";
     }

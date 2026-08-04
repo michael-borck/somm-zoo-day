@@ -22,7 +22,10 @@ import pathlib
 import shutil
 import sys
 
-SITE_URL = "https://michael-borck.github.io/somm-zoo-day/"
+# The QR points at the slinkr alias, not the Pages URL. slinkr refuses to
+# repoint an existing alias, so this one is now permanent - but the site it
+# resolves to can move without invalidating anything already printed.
+SITE_URL = "https://slinkr.link/udl"
 LENS_URL = "https://udllens.eduserver.au/"
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent

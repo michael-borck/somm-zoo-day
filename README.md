@@ -6,7 +6,7 @@ an AI-assisted audit of unit assessments against the UDL Guidelines 3.0.
 - **Assessment 2030 Showcase** — Thursday 20 August
 - **SoMM Zoo Day** — Friday 21 August
 
-**Site:** https://michael-borck.github.io/somm-zoo-day/
+**Site:** https://slinkr.link/udl — https://michael-borck.github.io/udl-lens-companion/
 **Tool:** https://udllens.eduserver.au/ · [source](https://github.com/michael-borck/udl-lens)
 
 ## What's here
@@ -22,6 +22,8 @@ step, no dependencies, no analytics, no cookies.
 
 Two interactive pieces, both client-side — nothing is recorded and no responses leave
 the browser:
+
+Both open as overlays from a pair of buttons, so the page stays short.
 
 - **Could you have caught it?** Eight UDL considerations, four real and four invented.
   The invented ones include two verbatim from an early UDL Lens build, where a language
@@ -49,8 +51,8 @@ Working notes, my co-presenter's slides, and anything derived from them are excl
 
 ## Credits
 
-Michael Borck · <michael.borck@curtin.edu.au> — the build and the AI design
 Luke Butcher · School of Management and Marketing — UDL, pedagogy, and Assessment 2030
+Michael Borck · <michael.borck@curtin.edu.au> — the build and the AI design
 
 UDL Guidelines 3.0 © CAST (2024), [udlguidelines.cast.org](https://udlguidelines.cast.org/).
 The consideration mapping is a first pass under review; treat the tool's output as a
