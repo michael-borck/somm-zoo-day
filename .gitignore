@@ -22,6 +22,9 @@ POLL-PLAN.md
 # Points at a permanently-open poll session. Slide material, not web material.
 slide-assets/
 
+# Email bundles - carry Luke's slides, and are rebuilt by scripts/make_bundles.py
+bundles/
+
 # Superseded.
 UDL_Lens_iSoLT_Handout.docx
 
