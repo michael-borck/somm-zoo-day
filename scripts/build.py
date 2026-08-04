@@ -17,7 +17,6 @@ opened from disk - handy when the venue wifi does not cooperate.
 """
 
 import argparse
-import copy
 import json
 import pathlib
 import shutil
@@ -30,9 +29,11 @@ SITE_URL = "https://slinkr.link/udl"
 LENS_URL = "https://udllens.eduserver.au/"
 # The live poll. /audience/<code> lands straight in the question - /join needs
 # the code typed, which defeats the point of a QR. The code is fixed, so the
-# link is stable, but it is deliberately NOT published: the session is open
-# permanently, and a link anyone can find lets strangers vote into the tally we
-# project at the room. Slide only, so this QR is written outside docs/.
+# link is stable. The QR itself lives in slide-assets/ rather than docs/ - it is
+# slide furniture, not web content - but the published deck DOES keep its poll
+# slide, because that download is the presenters' backup copy and a backup
+# missing a slide is not a backup. The trade-off is that the code is findable,
+# so clear the session's responses on the morning of each event.
 POLL_CODE = "A1RHE7"
 POLL_URL = f"https://classpulse.eduserver.au/audience/{POLL_CODE}"
 
@@ -166,43 +167,9 @@ def main() -> None:
         if not source.exists():
             print(f"  MISSING {name} - skipped")
             continue
-        dest = DOCS / "files" / name
-        shutil.copy2(source, dest)
-        removed = strip_poll_slides(dest)
-        note = f", {removed} poll slide stripped" if removed else ""
-        print(f"  {name} ({dest.stat().st_size // 1024} kB{note})")
+        shutil.copy2(source, DOCS / "files" / name)
+        print(f"  {name} ({source.stat().st_size // 1024} kB)")
 
-
-def strip_poll_slides(path: pathlib.Path) -> int:
-    """Remove any slide carrying the live-poll join code from a published deck.
-
-    The presenter decks carry a slide with the ClassPulse QR and code on it. The
-    session is open permanently, so anything published with that code on it lets
-    a stranger vote into the tally we project at the room - which is the whole
-    reason the poll link is slide-only. The download therefore ships without it.
-
-    Returns the number of slides removed, so the caller can say so out loud
-    rather than silently changing what people download.
-    """
-    if path.suffix != ".pptx":
-        return 0
-    try:
-        from pptx import Presentation
-    except ImportError:
-        sys.exit("python-pptx is not installed. pip install python-pptx")
-
-    prs = Presentation(path)
-    ids = prs.slides._sldIdLst
-    entries = list(ids)
-    doomed = [
-        entries[i] for i, slide in enumerate(prs.slides)
-        if any(sh.has_text_frame and POLL_CODE in sh.text_frame.text for sh in slide.shapes)
-    ]
-    for entry in doomed:
-        ids.remove(entry)
-    if doomed:
-        prs.save(path)
-    return len(doomed)
 
 
 if __name__ == "__main__":
