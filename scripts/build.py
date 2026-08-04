@@ -54,7 +54,6 @@ GUIDELINES = [
 
 # Published for download. Everything else stays local - see .gitignore.
 PUBLIC_FILES = [
-    "UDL_Lens_Showcase_Leavebehind.docx",
     "UDL_Lens_iSoLT_Handout_v2.docx",
     "UDL3_Coverage_Map_for_review.docx",
     "UDL_Lens_ZooDay_Print_Materials.docx",
