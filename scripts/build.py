@@ -17,6 +17,7 @@ opened from disk - handy when the venue wifi does not cooperate.
 """
 
 import argparse
+import copy
 import json
 import pathlib
 import shutil
@@ -27,6 +28,13 @@ import sys
 # resolves to can move without invalidating anything already printed.
 SITE_URL = "https://slinkr.link/udl"
 LENS_URL = "https://udllens.eduserver.au/"
+# The live poll. /audience/<code> lands straight in the question - /join needs
+# the code typed, which defeats the point of a QR. The code is fixed, so the
+# link is stable, but it is deliberately NOT published: the session is open
+# permanently, and a link anyone can find lets strangers vote into the tally we
+# project at the room. Slide only, so this QR is written outside docs/.
+POLL_CODE = "A1RHE7"
+POLL_URL = f"https://classpulse.eduserver.au/audience/{POLL_CODE}"
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
@@ -97,6 +105,17 @@ def build_qr_codes() -> None:
         print(f"  {name}.svg/.png  ->  {url}")
 
 
+def build_poll_qr() -> None:
+    """The poll QR, written to slide-assets/ rather than docs/ - see POLL_URL."""
+    import segno
+    out = ROOT / "slide-assets"
+    out.mkdir(exist_ok=True)
+    code = segno.make(POLL_URL, error="h")
+    code.save(out / "qr-poll.svg", scale=6, border=2, dark="#0F2530")
+    code.save(out / "qr-poll.png", scale=16, border=2, dark="#0F2530")
+    print(f"  slide-assets/qr-poll.svg/.png  ->  {POLL_URL}")
+
+
 def inline_coverage(coverage: dict) -> None:
     """Put the JSON into the <script type="application/json"> block in index.html.
 
@@ -131,6 +150,7 @@ def main() -> None:
 
     print("QR codes:")
     build_qr_codes()
+    build_poll_qr()
 
     print("Coverage:")
     coverage = build_coverage(args.lens)
@@ -146,8 +166,43 @@ def main() -> None:
         if not source.exists():
             print(f"  MISSING {name} - skipped")
             continue
-        shutil.copy2(source, DOCS / "files" / name)
-        print(f"  {name} ({source.stat().st_size // 1024} kB)")
+        dest = DOCS / "files" / name
+        shutil.copy2(source, dest)
+        removed = strip_poll_slides(dest)
+        note = f", {removed} poll slide stripped" if removed else ""
+        print(f"  {name} ({dest.stat().st_size // 1024} kB{note})")
+
+
+def strip_poll_slides(path: pathlib.Path) -> int:
+    """Remove any slide carrying the live-poll join code from a published deck.
+
+    The presenter decks carry a slide with the ClassPulse QR and code on it. The
+    session is open permanently, so anything published with that code on it lets
+    a stranger vote into the tally we project at the room - which is the whole
+    reason the poll link is slide-only. The download therefore ships without it.
+
+    Returns the number of slides removed, so the caller can say so out loud
+    rather than silently changing what people download.
+    """
+    if path.suffix != ".pptx":
+        return 0
+    try:
+        from pptx import Presentation
+    except ImportError:
+        sys.exit("python-pptx is not installed. pip install python-pptx")
+
+    prs = Presentation(path)
+    ids = prs.slides._sldIdLst
+    entries = list(ids)
+    doomed = [
+        entries[i] for i, slide in enumerate(prs.slides)
+        if any(sh.has_text_frame and POLL_CODE in sh.text_frame.text for sh in slide.shapes)
+    ]
+    for entry in doomed:
+        ids.remove(entry)
+    if doomed:
+        prs.save(path)
+    return len(doomed)
 
 
 if __name__ == "__main__":
