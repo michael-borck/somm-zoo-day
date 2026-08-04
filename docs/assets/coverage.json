@@ -1,0 +1,211 @@
+{
+ "guidelines": [
+  {
+   "principle": "Engagement",
+   "name": "Welcoming Interests & Identities"
+  },
+  {
+   "principle": "Engagement",
+   "name": "Sustaining Effort & Persistence"
+  },
+  {
+   "principle": "Engagement",
+   "name": "Emotional Capacity"
+  },
+  {
+   "principle": "Representation",
+   "name": "Perception"
+  },
+  {
+   "principle": "Representation",
+   "name": "Language & Symbols"
+  },
+  {
+   "principle": "Representation",
+   "name": "Building Knowledge"
+  },
+  {
+   "principle": "Action & Expression",
+   "name": "Interaction"
+  },
+  {
+   "principle": "Action & Expression",
+   "name": "Expression & Communication"
+  },
+  {
+   "principle": "Action & Expression",
+   "name": "Strategy Development"
+  }
+ ],
+ "types": [
+  {
+   "key": "critical_ai_report",
+   "label": "Critical AI Comparison Report",
+   "lane": "lane2",
+   "guidelines": [
+    "Emotional Capacity",
+    "Building Knowledge",
+    "Expression & Communication"
+   ],
+   "n": 4
+  },
+  {
+   "key": "exam_written",
+   "label": "Exam (Written, Timed)",
+   "lane": "lane1",
+   "guidelines": [
+    "Language & Symbols",
+    "Interaction",
+    "Strategy Development"
+   ],
+   "n": 4
+  },
+  {
+   "key": "field_journal",
+   "label": "Field Journal with Media Analysis",
+   "lane": "lane2",
+   "guidelines": [
+    "Welcoming Interests & Identities",
+    "Building Knowledge",
+    "Expression & Communication"
+   ],
+   "n": 3
+  },
+  {
+   "key": "in_class_worksheet",
+   "label": "In-Class Worksheet",
+   "lane": "lane1",
+   "guidelines": [
+    "Sustaining Effort & Persistence",
+    "Language & Symbols",
+    "Building Knowledge",
+    "Strategy Development"
+   ],
+   "n": 4
+  },
+  {
+   "key": "incremental_test",
+   "label": "Incremental Tests / eTests",
+   "lane": "lane1",
+   "guidelines": [
+    "Sustaining Effort & Persistence",
+    "Emotional Capacity",
+    "Language & Symbols"
+   ],
+   "n": 4
+  },
+  {
+   "key": "interactive_oral",
+   "label": "Interactive Oral (Collaborative)",
+   "lane": "lane1",
+   "guidelines": [
+    "Sustaining Effort & Persistence",
+    "Language & Symbols",
+    "Interaction"
+   ],
+   "n": 3
+  },
+  {
+   "key": "lab_practical_report",
+   "label": "Lab / Practical Report",
+   "lane": "lane2",
+   "guidelines": [
+    "Building Knowledge",
+    "Interaction",
+    "Expression & Communication"
+   ],
+   "n": 3
+  },
+  {
+   "key": "multimedia_artefact",
+   "label": "Multimedia / Digital Artefact",
+   "lane": "lane2",
+   "guidelines": [
+    "Perception",
+    "Expression & Communication"
+   ],
+   "n": 3
+  },
+  {
+   "key": "oral_presentation_online",
+   "label": "Oral Presentation - Delivered Online",
+   "lane": "lane1",
+   "guidelines": [
+    "Perception",
+    "Language & Symbols",
+    "Interaction",
+    "Expression & Communication"
+   ],
+   "n": 4
+  },
+  {
+   "key": "oral_presentation_inperson",
+   "label": "Oral Presentation - In Person",
+   "lane": "lane1",
+   "guidelines": [
+    "Sustaining Effort & Persistence",
+    "Perception",
+    "Language & Symbols",
+    "Interaction"
+   ],
+   "n": 4
+  },
+  {
+   "key": "portfolio",
+   "label": "Portfolio",
+   "lane": "lane2",
+   "guidelines": [
+    "Emotional Capacity",
+    "Expression & Communication",
+    "Strategy Development"
+   ],
+   "n": 4
+  },
+  {
+   "key": "recorded_presentation",
+   "label": "Recorded Presentation",
+   "lane": "lane2",
+   "guidelines": [
+    "Perception",
+    "Language & Symbols",
+    "Expression & Communication"
+   ],
+   "n": 4
+  },
+  {
+   "key": "reflexive_essay",
+   "label": "Reflexive Essay",
+   "lane": "lane2",
+   "guidelines": [
+    "Welcoming Interests & Identities",
+    "Emotional Capacity",
+    "Building Knowledge"
+   ],
+   "n": 4
+  },
+  {
+   "key": "skills_demonstration",
+   "label": "Skills Demonstration (Lab, Clinical, Practical)",
+   "lane": "lane1",
+   "guidelines": [
+    "Welcoming Interests & Identities",
+    "Perception",
+    "Interaction",
+    "Expression & Communication"
+   ],
+   "n": 4
+  },
+  {
+   "key": "written_report",
+   "label": "Written Report",
+   "lane": "lane2",
+   "guidelines": [
+    "Sustaining Effort & Persistence",
+    "Language & Symbols",
+    "Building Knowledge",
+    "Strategy Development"
+   ],
+   "n": 5
+  }
+ ]
+}

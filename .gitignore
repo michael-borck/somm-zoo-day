@@ -1,0 +1,33 @@
+# This repo is PUBLIC, because GitHub Pages on a free account only serves public
+# repos. Everything below is either internal, or somebody else's work that has
+# not been cleared for publication. Keep it that way.
+
+# Internal working notes - candid, about named colleagues.
+AUDIT.md
+SHOWCASE-RUNNING-ORDER.md
+reply-to-luke-draft.md
+
+# Luke's material and anything derived from it. Not ours to publish, and the
+# suggested cut has not been agreed yet.
+lukes-original/
+UDL_Lens_Retreat_v5.pptx
+UDL_Lens_Retreat_v6.pptx
+UDL_Lens_Showcase_SUGGESTION_v1.pptx
+UDL_Lens_ZooDay_v1.pptx
+
+# Run sheet and contingencies - for the presenters only.
+UDL_Lens_ZooDay_Facilitator_Pack.docx
+
+# Superseded.
+UDL_Lens_iSoLT_Handout.docx
+
+# The published copies under docs/files/ are the ones that ship. The originals
+# in the repo root are the working copies.
+/UDL_Lens_Showcase_Leavebehind.docx
+/UDL_Lens_iSoLT_Handout_v2.docx
+/UDL3_Coverage_Map_for_review.docx
+/UDL_Lens_ZooDay_Print_Materials.docx
+/UDL_Lens_Showcase_AI_half_v1.pptx
+
+.DS_Store
+._*

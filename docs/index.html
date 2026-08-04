@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UDL Lens — session companion | Curtin University</title>
+<meta name="description" content="Companion site for two Curtin sessions on UDL Lens: an AI-assisted UDL 3.0 audit tool for unit assessments. Slides, handouts, and the tool itself.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231B3A4B'/><circle cx='16' cy='16' r='6.5' fill='none' stroke='%23C96B2F' stroke-width='2.6'/></svg>">
+<style>
+  :root{
+    --cream:#FAF7F2; --sand:#E8E0D0; --teal:#1B3A4B; --teal-light:#2E5569;
+    --teal-dark:#0F2530; --terracotta:#C96B2F; --terracotta-dark:#A5551F;
+    --amber:#D4A017; --surface:#fff; --ink:#1B3A4B; --ink-soft:#415865;
+    --rule:#E8E0D0; --focus:#C96B2F;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --cream:#101E26; --sand:#28414E; --surface:#162A34; --ink:#E9EEF1;
+      --ink-soft:#AFC1CC; --rule:#28414E; --teal:#DCE6EB; --teal-light:#AFC1CC;
+      --terracotta-dark:#F0A575; --terracotta:#E08050; --focus:#E08050;
+    }
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--cream);color:var(--ink);
+    font:400 clamp(1rem,0.97rem + 0.16vw,1.075rem)/1.65 system-ui,-apple-system,"Segoe UI",sans-serif;
+    text-underline-offset:.18em}
+  h1,h2,h3{font-family:Georgia,"Iowan Old Style",serif;font-weight:600;line-height:1.2;
+    letter-spacing:-.01em;text-wrap:balance}
+  h1{font-size:clamp(1.85rem,1.4rem + 2.1vw,3rem);margin:0 0 .5rem}
+  h2{font-size:clamp(1.35rem,1.2rem + .8vw,1.85rem);margin:0 0 .35rem}
+  h3{font-size:1.1rem;margin:0 0 .3rem}
+  p,li{text-wrap:pretty}
+  a{color:var(--terracotta-dark);text-decoration-thickness:1px}
+  a:hover{text-decoration-thickness:2px}
+  :focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:3px}
+  .skip{position:absolute;left:-9999px;top:0;background:var(--teal);color:#fff;
+    padding:.7rem 1.1rem;z-index:20;border-radius:0 0 8px 0}
+  .skip:focus{left:0}
+  .wrap{max-width:60rem;margin:0 auto;padding:0 clamp(1rem,4vw,2rem)}
+  header.hero{background:var(--teal-dark);color:#fff;padding:clamp(2.2rem,6vw,3.6rem) 0 clamp(2rem,5vw,3rem)}
+  header.hero h1{color:#fff}
+  header.hero a{color:#F3C39A}
+  .eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+    color:#F3C39A;margin:0 0 .8rem}
+  .lede{font-size:clamp(1.05rem,1rem + .35vw,1.25rem);color:#DCE6EB;max-width:44ch;margin:0}
+  .events{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.6rem 0 0;padding:0;list-style:none}
+  .events li{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.22);
+    border-radius:999px;padding:.35rem .85rem;font-size:.85rem;color:#DCE6EB}
+  section{padding:clamp(2.2rem,5vw,3.2rem) 0;border-top:1px solid var(--rule)}
+  section>.wrap>p:first-of-type{margin-top:.2rem}
+  .sub{color:var(--ink-soft);max-width:62ch}
+  .card{background:var(--surface);border:1px solid var(--rule);border-radius:14px;
+    padding:clamp(1.1rem,3vw,1.6rem)}
+  .grid{display:grid;gap:1rem}
+  @media(min-width:46rem){.grid.two{grid-template-columns:1fr 1fr}}
+  .cta{display:grid;gap:1.4rem;align-items:center}
+  @media(min-width:44rem){.cta{grid-template-columns:1fr auto}}
+  .btn{display:inline-block;background:var(--terracotta-dark);color:#fff;font-weight:600;
+    padding:.75rem 1.4rem;border-radius:9px;text-decoration:none;border:2px solid transparent}
+  .btn:hover{background:var(--terracotta)}
+  .btn.ghost{background:transparent;color:var(--terracotta-dark);border-color:var(--rule)}
+  .btn.ghost:hover{background:var(--surface);border-color:var(--terracotta-dark)}
+  .qr{background:#fff;padding:.7rem;border-radius:12px;border:1px solid var(--sand);
+    width:max-content;margin-inline:auto}
+  .qr img{display:block;width:150px;height:150px}
+  .qr figcaption{font-size:.72rem;color:#415865;text-align:center;margin-top:.45rem;
+    word-break:break-all;max-width:150px}
+  ul.files{list-style:none;padding:0;margin:1.2rem 0 0;display:grid;gap:.7rem}
+  ul.files a{font-weight:600}
+  ul.files .meta{display:block;font-size:.86rem;color:var(--ink-soft);font-weight:400;margin-top:.15rem}
+  .badge{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.05em;
+    text-transform:uppercase;background:var(--sand);color:var(--teal);border-radius:5px;
+    padding:.12rem .45rem;margin-left:.35rem;vertical-align:.08em}
+
+  /* --- quiz --- */
+  .q{border:1px solid var(--rule);border-radius:12px;background:var(--surface);
+    padding:1rem 1.1rem;margin:0 0 .8rem}
+  .q legend{font-weight:600;padding:0;font-size:.95rem}
+  .q .code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;
+    color:var(--terracotta-dark)}
+  .q .opts{display:flex;gap:.6rem;flex-wrap:wrap;margin:.75rem 0 0}
+  .q .opts label{border:1.5px solid var(--rule);border-radius:8px;padding:.4rem .9rem;
+    cursor:pointer;font-size:.92rem;background:var(--cream)}
+  .q .opts input{margin-right:.4rem}
+  .q .opts label:has(input:checked){border-color:var(--teal);background:var(--sand);font-weight:600}
+  .q .opts label:has(input:focus-visible){outline:3px solid var(--focus);outline-offset:2px}
+  .verdict{margin:.8rem 0 0;font-size:.92rem;padding:.7rem .85rem;border-radius:8px;
+    border-left:4px solid var(--rule);background:var(--cream)}
+  .verdict[data-r="right"]{border-left-color:#2F7D62}
+  .verdict[data-r="wrong"]{border-left-color:var(--terracotta-dark)}
+  .verdict .mark{font-weight:700}
+  .score{font-size:1.05rem;font-weight:600;margin:1.2rem 0 0;padding:1rem 1.1rem;
+    background:var(--surface);border:1px solid var(--rule);border-radius:12px}
+  .score p{font-weight:400;font-size:.95rem;color:var(--ink-soft);margin:.5rem 0 0}
+
+  /* --- coverage explorer --- */
+  .types{display:flex;flex-wrap:wrap;gap:.5rem;padding:0;margin:1rem 0 0;list-style:none}
+  .types label{display:inline-block;border:1.5px solid var(--rule);border-radius:999px;
+    padding:.35rem .85rem;font-size:.88rem;cursor:pointer;background:var(--surface)}
+  .types label:has(input:checked){border-color:var(--teal);background:var(--teal);color:#fff;font-weight:600}
+  .types label:has(input:focus-visible){outline:3px solid var(--focus);outline-offset:2px}
+  .types input{position:absolute;opacity:0;width:1px;height:1px}
+  table.cov{width:100%;border-collapse:collapse;margin:1.2rem 0 0;font-size:.93rem}
+  table.cov caption{text-align:left;color:var(--ink-soft);font-size:.88rem;margin-bottom:.6rem}
+  table.cov th[scope=colgroup]{text-align:left;font-size:.7rem;letter-spacing:.07em;
+    text-transform:uppercase;color:var(--ink-soft);padding:.9rem 0 .2rem;font-weight:700}
+  table.cov th[scope=row]{text-align:left;font-weight:400;padding:.3rem .8rem .3rem 0;width:46%}
+  table.cov td{padding:.3rem 0}
+  .track{height:10px;border-radius:99px;background:var(--sand)}
+  .track.empty{background:none;border:1.5px dashed var(--sand)}
+  .fill{height:100%;border-radius:99px;background:var(--teal-light);width:0;
+    transition:width .35s ease}
+  td.n{width:9.5rem;text-align:right;font-variant-numeric:tabular-nums;padding-left:.8rem;
+    white-space:nowrap;font-size:.85rem}
+  .na{color:var(--ink-soft);font-style:italic}
+  footer{background:var(--teal-dark);color:#DCE6EB;padding:2.4rem 0;font-size:.92rem}
+  footer a{color:#F3C39A}
+  footer h2{color:#fff;font-size:1.05rem}
+  .fine{font-size:.83rem;color:#AFC1CC;margin-top:1.4rem}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  @media print{
+    header.hero,footer{background:#fff!important;color:#000!important}
+    header.hero h1,footer h2{color:#000!important}
+    .btn{border:1px solid #000;color:#000!important;background:#fff!important}
+    a[href^="http"]::after{content:" (" attr(href) ")";font-size:.8em;word-break:break-all}
+    section{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Curtin University · School of Management and Marketing</p>
+    <h1>UDL Lens</h1>
+    <p class="lede">An AI-assisted audit of your unit assessments against the UDL Guidelines 3.0. The AI drafts. The academic decides.</p>
+    <ul class="events">
+      <li>Assessment 2030 Showcase · Thu 20 Aug</li>
+      <li>SoMM Zoo Day · Fri 21 Aug</li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+<section id="tool">
+  <div class="wrap">
+    <h2>Try it on a real assessment</h2>
+    <p class="sub">Bring a brief from a unit you coordinate. It takes about twenty minutes and you keep the PDF. Nothing is stored on our servers — your ratings live in your browser session only.</p>
+    <div class="cta" style="margin-top:1.4rem">
+      <div class="card">
+        <h3>udllens.eduserver.au</h3>
+        <p class="sub" style="margin:.3rem 0 1rem">Fifteen assessment types, 57 UDL 3.0 considerations across all nine guidelines, every code checked against CAST&rsquo;s canonical table.</p>
+        <a class="btn" href="https://udllens.eduserver.au/">Open UDL Lens</a>
+      </div>
+      <figure class="qr">
+        <img src="assets/qr-udllens.png" alt="QR code linking to udllens.eduserver.au">
+        <figcaption>udllens.eduserver.au</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="wrap">
+    <h2>Could you have caught it?</h2>
+    <p class="sub">An early build of UDL Lens carried 21 UDL &ldquo;checkpoints&rdquo;. Sixteen of the codes were wrong — invented by a language model, plausibly worded, correctly numbered, confidently wrong. Four of the eight below are verbatim UDL 3.0. Four are not. No marks are recorded anywhere.</p>
+
+    <form id="quizForm" style="margin-top:1.5rem">
+      <div id="quizItems"></div>
+      <button class="btn" type="submit">Check my answers</button>
+      <button class="btn ghost" type="reset">Start again</button>
+    </form>
+    <div id="score" class="score" hidden tabindex="-1"></div>
+  </div>
+</section>
+
+<section id="coverage">
+  <div class="wrap">
+    <h2>What can your assessments actually show?</h2>
+    <p class="sub">A UDL guideline can only be evidenced by an assessment that puts it in play — an exam cannot show you much about collaboration. Choose the assessment types in one of your units and see how much of UDL 3.0 they can reach between them.</p>
+    <fieldset style="border:0;padding:0;margin:1.3rem 0 0;min-width:0">
+      <legend style="font-weight:600">Assessment types in this unit</legend>
+      <ul class="types" id="typeList"></ul>
+    </fieldset>
+    <div id="covResult" role="status"></div>
+  </div>
+</section>
+
+<section id="materials">
+  <div class="wrap">
+    <h2>Handouts and slides</h2>
+    <p class="sub">Everything here is ours to share. The joint slide deck goes up once my co-presenter has signed off on the cut.</p>
+    <ul class="files">
+      <li><a href="files/UDL_Lens_Showcase_Leavebehind.docx" download>Showcase leave-behind <span class="badge">DOCX · 1 page</span></a>
+        <span class="meta">The design principle, what went wrong in the build, and the link. The one-pager from the Thursday session.</span></li>
+      <li><a href="files/UDL_Lens_iSoLT_Handout_v2.docx" download>iSoLT and ACF evidence handout <span class="badge">DOCX · 3 pages</span></a>
+        <span class="meta">How a UDL audit turns into evidence for an iSoLT application and the Academic Capability Framework.</span></li>
+      <li><a href="files/UDL3_Coverage_Map_for_review.docx" download>UDL 3.0 coverage map <span class="badge">DOCX · draft</span></a>
+        <span class="meta">All 36 considerations, and which assessment types currently ask about each. The 14 nothing reaches yet are shaded. A first pass, out for review — corrections welcome.</span></li>
+      <li><a href="files/UDL_Lens_ZooDay_Print_Materials.docx" download>Zoo Day workshop materials <span class="badge">DOCX</span></a>
+        <span class="meta">Rating cards, three sample assessment briefs, and a capture sheet. Print double-sided.</span></li>
+      <li><a href="files/UDL_Lens_Showcase_AI_half_v1.pptx" download>Slides — the AI half <span class="badge">PPTX · 8 slides</span></a>
+        <span class="meta">Michael&rsquo;s section on its own: the design constraint, the failure, and what it cost to fix.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="share">
+  <div class="wrap">
+    <div class="cta">
+      <div>
+        <h2>Send this page to a colleague</h2>
+        <p class="sub">One link for the slides, the handouts and the tool. Nothing here needs a login.</p>
+      </div>
+      <figure class="qr">
+        <img src="assets/qr-companion.png" alt="QR code linking to this companion site">
+        <figcaption>michael-borck.github.io/somm-zoo-day</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <h2>Get in touch</h2>
+    <p><strong>Michael Borck</strong> · <a href="mailto:michael.borck@curtin.edu.au">michael.borck@curtin.edu.au</a><br>
+    <span style="color:#AFC1CC">The build and the AI design</span></p>
+    <p><strong>Luke Butcher</strong> · School of Management and Marketing<br>
+    <span style="color:#AFC1CC">UDL, pedagogy, and Assessment 2030</span></p>
+    <p class="fine">UDL Guidelines 3.0 &copy; CAST (2024) · <a href="https://udlguidelines.cast.org/">udlguidelines.cast.org</a>. UDL Lens is an unfunded prototype built inside the School of Management and Marketing. The consideration mapping is a first pass and is being reviewed — treat its output as a prompt for a conversation, not a compliance score.</p>
+  </div>
+</footer>
+
+<script id="coverageData" type="application/json">{
+ "guidelines": [
+  {
+   "principle": "Engagement",
+   "name": "Welcoming Interests & Identities"
+  },
+  {
+   "principle": "Engagement",
+   "name": "Sustaining Effort & Persistence"
+  },
+  {
+   "principle": "Engagement",
+   "name": "Emotional Capacity"
+  },
+  {
+   "principle": "Representation",
+   "name": "Perception"
+  },
+  {
+   "principle": "Representation",
+   "name": "Language & Symbols"
+  },
+  {
+   "principle": "Representation",
+   "name": "Building Knowledge"
+  },
+  {
+   "principle": "Action & Expression",
+   "name": "Interaction"
+  },
+  {
+   "principle": "Action & Expression",
+   "name": "Expression & Communication"
+  },
+  {
+   "principle": "Action & Expression",
+   "name": "Strategy Development"
+  }
+ ],
+ "types": [
+  {
+   "key": "critical_ai_report",
+   "label": "Critical AI Comparison Report",
+   "lane": "lane2",
+   "guidelines": [
+    "Emotional Capacity",
+    "Building Knowledge",
+    "Expression & Communication"
+   ],
+   "n": 4
+  },
+  {
+   "key": "exam_written",
+   "label": "Exam (Written, Timed)",
+   "lane": "lane1",
+   "guidelines": [
+    "Language & Symbols",
+    "Interaction",
+    "Strategy Development"
+   ],
+   "n": 4
+  },
+  {
+   "key": "field_journal",
+   "label": "Field Journal with Media Analysis",
+   "lane": "lane2",
+   "guidelines": [
+    "Welcoming Interests & Identities",
+    "Building Knowledge",
+    "Expression & Communication"
+   ],
+   "n": 3
+  },
+  {
+   "key": "in_class_worksheet",
+   "label": "In-Class Worksheet",
+   "lane": "lane1",
+   "guidelines": [
+    "Sustaining Effort & Persistence",
+    "Language & Symbols",
+    "Building Knowledge",
+    "Strategy Development"
+   ],
+   "n": 4
+  },
+  {
+   "key": "incremental_test",
+   "label": "Incremental Tests / eTests",
+   "lane": "lane1",
+   "guidelines": [
+    "Sustaining Effort & Persistence",
+    "Emotional Capacity",
+    "Language & Symbols"
+   ],
+   "n": 4
+  },
+  {
+   "key": "interactive_oral",
+   "label": "Interactive Oral (Collaborative)",
+   "lane": "lane1",
+   "guidelines": [
+    "Sustaining Effort & Persistence",
+    "Language & Symbols",
+    "Interaction"
+   ],
+   "n": 3
+  },
+  {
+   "key": "lab_practical_report",
+   "label": "Lab / Practical Report",
+   "lane": "lane2",
+   "guidelines": [
+    "Building Knowledge",
+    "Interaction",
+    "Expression & Communication"
+   ],
+   "n": 3
+  },
+  {
+   "key": "multimedia_artefact",
+   "label": "Multimedia / Digital Artefact",
+   "lane": "lane2",
+   "guidelines": [
+    "Perception",
+    "Expression & Communication"
+   ],
+   "n": 3
+  },
+  {
+   "key": "oral_presentation_online",
+   "label": "Oral Presentation - Delivered Online",
+   "lane": "lane1",
+   "guidelines": [
+    "Perception",
+    "Language & Symbols",
+    "Interaction",
+    "Expression & Communication"
+   ],
+   "n": 4
+  },
+  {
+   "key": "oral_presentation_inperson",
+   "label": "Oral Presentation - In Person",
+   "lane": "lane1",
+   "guidelines": [
+    "Sustaining Effort & Persistence",
+    "Perception",
+    "Language & Symbols",
+    "Interaction"
+   ],
+   "n": 4
+  },
+  {
+   "key": "portfolio",
+   "label": "Portfolio",
+   "lane": "lane2",
+   "guidelines": [
+    "Emotional Capacity",
+    "Expression & Communication",
+    "Strategy Development"
+   ],
+   "n": 4
+  },
+  {
+   "key": "recorded_presentation",
+   "label": "Recorded Presentation",
+   "lane": "lane2",
+   "guidelines": [
+    "Perception",
+    "Language & Symbols",
+    "Expression & Communication"
+   ],
+   "n": 4
+  },
+  {
+   "key": "reflexive_essay",
+   "label": "Reflexive Essay",
+   "lane": "lane2",
+   "guidelines": [
+    "Welcoming Interests & Identities",
+    "Emotional Capacity",
+    "Building Knowledge"
+   ],
+   "n": 4
+  },
+  {
+   "key": "skills_demonstration",
+   "label": "Skills Demonstration (Lab, Clinical, Practical)",
+   "lane": "lane1",
+   "guidelines": [
+    "Welcoming Interests & Identities",
+    "Perception",
+    "Interaction",
+    "Expression & Communication"
+   ],
+   "n": 4
+  },
+  {
+   "key": "written_report",
+   "label": "Written Report",
+   "lane": "lane2",
+   "guidelines": [
+    "Sustaining Effort & Persistence",
+    "Language & Symbols",
+    "Building Knowledge",
+    "Strategy Development"
+   ],
+   "n": 5
+  }
+ ]
+}</script>
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- Quiz ----------------
+     Every item below is checkable against CAST's published UDL 3.0 table.
+     The two "invented" items marked historical are verbatim from the failed
+     build; the other two use codes that do not exist - guideline 4 stops at
+     4.2, guideline 9 stops at 9.4. */
+  var ITEMS = [
+    {code:"8.3", text:"Foster collaboration, interdependence, and collective learning", real:true,
+     why:"Real. Guideline 8, Sustaining Effort &amp; Persistence."},
+    {code:"3.2", text:"Explicit success criteria and rubric", real:false,
+     why:"Invented &mdash; and this one is verbatim from our own early build. CAST&rsquo;s 3.2 is &ldquo;Highlight and explore patterns, critical features, big ideas, and relationships&rdquo;. Reasonable assessment advice, attached to the wrong code."},
+    {code:"7.3", text:"Nurture joy and play", real:true,
+     why:"Real, and it is the one people most often reject. Guideline 7, Welcoming Interests &amp; Identities."},
+    {code:"4.3", text:"Technology requirements clearly stated", real:false,
+     why:"Invented, also verbatim from the early build. Guideline 4 has exactly two considerations, 4.1 and 4.2. There is no 4.3 to be right or wrong about."},
+    {code:"5.2", text:"Use multiple tools for construction, composition, and creativity", real:true,
+     why:"Real. Guideline 5, Expression &amp; Communication."},
+    {code:"9.5", text:"Support student wellbeing and manage assessment stress", real:false,
+     why:"Invented. It sounds like exactly the sort of thing UDL would say, which is the problem. Guideline 9 stops at 9.4."},
+    {code:"6.5", text:"Challenge exclusionary practices", real:true,
+     why:"Real. Guideline 6, Strategy Development &mdash; added in 3.0, which is why it reads as unfamiliar."},
+    {code:"2.6", text:"Provide captions and transcripts for all media", real:false,
+     why:"Invented. Good practice, genuinely required elsewhere, but not a UDL 3.0 consideration &mdash; guideline 2 stops at 2.5."}
+  ];
+
+  var form = document.getElementById("quizForm");
+  var items = document.getElementById("quizItems");
+  var scoreBox = document.getElementById("score");
+
+  ITEMS.forEach(function(it, i){
+    var fs = document.createElement("fieldset");
+    fs.className = "q";
+    fs.innerHTML =
+      '<legend><span class="code">' + it.code + '</span> &mdash; ' + it.text + '</legend>' +
+      '<div class="opts">' +
+        '<label><input type="radio" name="q' + i + '" value="real"> Real UDL 3.0</label>' +
+        '<label><input type="radio" name="q' + i + '" value="fake"> Invented</label>' +
+      '</div>';
+    items.appendChild(fs);
+  });
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var right = 0, answered = 0;
+    ITEMS.forEach(function(it, i){
+      var fs = items.children[i];
+      var picked = form.elements["q" + i].value;
+      var old = fs.querySelector(".verdict");
+      if (old) old.remove();
+      if (!picked) return;
+      answered++;
+      var ok = (picked === "real") === it.real;
+      if (ok) right++;
+      var v = document.createElement("p");
+      v.className = "verdict";
+      v.setAttribute("data-r", ok ? "right" : "wrong");
+      v.innerHTML = '<span class="mark">' + (ok ? "Correct." : "Not this one.") + '</span> ' + it.why;
+      fs.appendChild(v);
+    });
+
+    if (!answered) {
+      scoreBox.hidden = false;
+      scoreBox.textContent = "Have a go at one or two first — nothing is recorded.";
+      scoreBox.focus();
+      return;
+    }
+
+    var msg;
+    if (right === ITEMS.length) {
+      msg = "All " + right + ". You either know the guidelines well or you looked them up — both of which are exactly the point.";
+    } else if (right >= 6) {
+      msg = "You did better than most, and you still missed " + (ITEMS.length - right) + ".";
+    } else {
+      msg = "Which is roughly how everyone does, including the people who built the tool.";
+    }
+    scoreBox.hidden = false;
+    scoreBox.innerHTML = "<span>" + right + " of " + ITEMS.length + " correct.</span>" +
+      "<p>" + msg + " The invented ones are not gibberish — they are plausible, well formatted, correctly numbered and confident. " +
+      "You cannot catch that by reading carefully; only by knowing the field, or by checking every code against a canonical table. " +
+      "UDL Lens now does the second automatically, so a human only has to do the first.</p>";
+    scoreBox.focus();
+  });
+
+  form.addEventListener("reset", function(){
+    setTimeout(function(){
+      Array.prototype.forEach.call(items.querySelectorAll(".verdict"), function(v){ v.remove(); });
+      scoreBox.hidden = true;
+      scoreBox.innerHTML = "";
+    }, 0);
+  });
+
+  /* ---------------- Coverage explorer ---------------- */
+  var DATA = JSON.parse(document.getElementById("coverageData").textContent);
+  var list = document.getElementById("typeList");
+  var out = document.getElementById("covResult");
+
+  DATA.types.forEach(function(t, i){
+    var li = document.createElement("li");
+    li.innerHTML = '<label><input type="checkbox" value="' + i + '"> ' + t.label + '</label>';
+    list.appendChild(li);
+  });
+
+  function render(){
+    var chosen = Array.prototype.filter.call(
+      list.querySelectorAll("input"), function(c){ return c.checked; }
+    ).map(function(c){ return DATA.types[+c.value]; });
+
+    if (!chosen.length) { out.innerHTML = ""; return; }
+
+    // How many of the chosen types touch each guideline. Depth of evidence, not
+    // a score: nothing here says whether the unit does UDL well.
+    var reach = {};
+    chosen.forEach(function(t){
+      t.guidelines.forEach(function(g){ reach[g] = (reach[g] || 0) + 1; });
+    });
+    var hit = Object.keys(reach).length;
+
+    var rows = "", principle = "";
+    DATA.guidelines.forEach(function(g){
+      if (g.principle !== principle) {
+        principle = g.principle;
+        rows += '<tr><th scope="colgroup" colspan="3">' + principle + '</th></tr>';
+      }
+      var n = reach[g.name] || 0;
+      var pct = n ? Math.round(n / chosen.length * 100) : 0;
+      rows += '<tr><th scope="row"' + (n ? '' : ' class="na"') + '>' + g.name + '</th>' +
+        '<td>' + (n
+          ? '<div class="track"><div class="fill" style="width:' + Math.max(pct, 8) + '%"></div></div>'
+          : '<div class="track empty"></div>') + '</td>' +
+        '<td class="n">' + (n
+          ? n + ' of ' + chosen.length + ' assessment' + (chosen.length === 1 ? '' : 's')
+          : '<span class="na">no evidence</span>') + '</td></tr>';
+    });
+
+    var note = hit === 9
+      ? "These types between them can reach all nine guidelines — unusual, and worth keeping."
+      : "The other " + (9 - hit) + " cannot be evidenced by these assessment types at all. That is a limit on what an audit can see, not a mark against the unit — but it is also the argument for varying what you ask students to do.";
+
+    out.innerHTML =
+      '<table class="cov"><caption>Guidelines these ' + chosen.length + ' assessment type' +
+      (chosen.length === 1 ? '' : 's') + ' can put in play. Bars show how many of your chosen assessments touch each guideline.</caption>' +
+      '<tbody>' + rows + '</tbody></table>' +
+      '<p class="sub" style="margin-top:1rem"><strong>' + hit + ' of 9 guidelines reachable.</strong> ' + note + '</p>';
+  }
+
+  list.addEventListener("change", render);
+})();
+</script>
+</body>
+</html>
