@@ -12,12 +12,17 @@
     --teal-dark:#0F2530; --terracotta:#C96B2F; --terracotta-dark:#A5551F;
     --amber:#D4A017; --surface:#fff; --ink:#1B3A4B; --ink-soft:#415865;
     --rule:#E8E0D0; --focus:#C96B2F;
+    /* Selected chips and the skip link paint ink ON a solid fill. They need
+       their own pair: --teal inverts between modes, so reusing it here put
+       white text on a light background in dark mode. */
+    --on-solid-bg:#1B3A4B; --on-solid-fg:#FFFFFF;
   }
   @media (prefers-color-scheme:dark){
     :root{
       --cream:#101E26; --sand:#28414E; --surface:#162A34; --ink:#E9EEF1;
       --ink-soft:#AFC1CC; --rule:#28414E; --teal:#DCE6EB; --teal-light:#AFC1CC;
       --terracotta-dark:#F0A575; --terracotta:#E08050; --focus:#E08050;
+      --on-solid-bg:#DCE6EB; --on-solid-fg:#0F2530;
     }
   }
   *,*::before,*::after{box-sizing:border-box}
@@ -34,7 +39,7 @@
   a{color:var(--terracotta-dark);text-decoration-thickness:1px}
   a:hover{text-decoration-thickness:2px}
   :focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:3px}
-  .skip{position:absolute;left:-9999px;top:0;background:var(--teal);color:#fff;
+  .skip{position:absolute;left:-9999px;top:0;background:var(--on-solid-bg);color:var(--on-solid-fg);
     padding:.7rem 1.1rem;z-index:20;border-radius:0 0 8px 0}
   .skip:focus{left:0}
   .wrap{max-width:60rem;margin:0 auto;padding:0 clamp(1rem,4vw,2rem)}
@@ -98,7 +103,8 @@
   .types{display:flex;flex-wrap:wrap;gap:.5rem;padding:0;margin:1rem 0 0;list-style:none}
   .types label{display:inline-block;border:1.5px solid var(--rule);border-radius:999px;
     padding:.35rem .85rem;font-size:.88rem;cursor:pointer;background:var(--surface)}
-  .types label:has(input:checked){border-color:var(--teal);background:var(--teal);color:#fff;font-weight:600}
+  .types label:has(input:checked){border-color:var(--on-solid-bg);background:var(--on-solid-bg);
+    color:var(--on-solid-fg);font-weight:600}
   .types label:has(input:focus-visible){outline:3px solid var(--focus);outline-offset:2px}
   .types input{position:absolute;opacity:0;width:1px;height:1px}
   table.cov{width:100%;border-collapse:collapse;margin:1.2rem 0 0;font-size:.93rem}
