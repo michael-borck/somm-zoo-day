@@ -211,8 +211,8 @@
     <p class="sub">Both run entirely in your browser. Nothing is recorded, nothing is sent anywhere, and there is no score to be embarrassed by.</p>
     <div class="ctarow">
       <button type="button" data-opens="quizDialog">
-        <span class="t">Could you have caught it?</span>
-        <span class="s">Eight UDL considerations. Four are real, four are invented — two of them verbatim from our own failed build.</span>
+        <span class="t">Which ones are fake?</span>
+        <span class="s">Eight UDL considerations. Four are verbatim UDL 3.0, four are convincing fakes. Can you tell them apart?</span>
         <span class="m">Two minutes</span>
       </button>
       <button type="button" data-opens="covDialog">
@@ -273,8 +273,8 @@
   <div class="sheet">
     <header>
       <div>
-        <h2 id="quizTitle" style="margin:0">Could you have caught it?</h2>
-        <p>An early build of UDL Lens carried 21 UDL &ldquo;checkpoints&rdquo;. Sixteen of the codes were wrong — invented by a language model, plausibly worded, correctly numbered, confidently wrong. Four of the eight below are verbatim UDL 3.0. Four are not.</p>
+        <h2 id="quizTitle" style="margin:0">Which ones are fake?</h2>
+        <p>UDL 3.0 has exactly 36 considerations, each with a code and a title. Four of the eight below are verbatim UDL 3.0. Four are plausible fakes — well worded, correctly formatted, and not in the guidelines at all.</p>
       </div>
       <button type="button" class="x" data-close aria-label="Close">&times;</button>
     </header>
@@ -545,18 +545,18 @@
   });
 
   /* ---------------- Quiz ----------------
-     Every item is checkable against CAST's published UDL 3.0 table. The two
-     marked historical are verbatim from the failed build; the others use codes
-     that do not exist - guideline 2 stops at 2.5, 4 at 4.2, 9 at 9.4. */
+     Every item is checkable against CAST's published UDL 3.0 table. One fake
+     pairs a real code with the wrong title (3.2); the rest use codes that do
+     not exist - guideline 2 stops at 2.5, 4 at 4.2, 9 at 9.4. */
   var ITEMS = [
     {code:"8.3", text:"Foster collaboration, interdependence, and collective learning", real:true,
      why:"Real. Guideline 8, Sustaining Effort &amp; Persistence."},
     {code:"3.2", text:"Explicit success criteria and rubric", real:false,
-     why:"Invented &mdash; and this one is verbatim from our own early build. CAST&rsquo;s 3.2 is &ldquo;Highlight and explore patterns, critical features, big ideas, and relationships&rdquo;. Reasonable assessment advice, attached to the wrong code."},
+     why:"Invented. CAST&rsquo;s 3.2 is &ldquo;Highlight and explore patterns, critical features, big ideas, and relationships&rdquo;. Reasonable assessment advice, attached to the wrong code."},
     {code:"7.3", text:"Nurture joy and play", real:true,
      why:"Real, and the one people most often reject. Guideline 7, Welcoming Interests &amp; Identities."},
     {code:"4.3", text:"Technology requirements clearly stated", real:false,
-     why:"Invented, also verbatim from the early build. Guideline 4 has exactly two considerations, 4.1 and 4.2. There is no 4.3 to be right or wrong about."},
+     why:"Invented. Guideline 4 has exactly two considerations, 4.1 and 4.2. There is no 4.3 to be right or wrong about."},
     {code:"5.2", text:"Use multiple tools for construction, composition, and creativity", real:true,
      why:"Real. Guideline 5, Expression &amp; Communication."},
     {code:"9.5", text:"Support student wellbeing and manage assessment stress", real:false,
@@ -615,13 +615,13 @@
     } else if (right >= 6) {
       msg = "Better than most, and you still missed " + (ITEMS.length - right) + ".";
     } else {
-      msg = "Which is roughly how everyone does, including the people who built the tool.";
+      msg = "Which is roughly how everyone does — that is what makes a plausible fake plausible.";
     }
     scoreBox.hidden = false;
     scoreBox.innerHTML = "<span>" + right + " of " + ITEMS.length + " correct.</span>" +
       "<p>" + msg + " The invented ones are not gibberish — they are plausible, well formatted, correctly numbered and confident. " +
       "You cannot catch that by reading carefully; only by knowing the field, or by checking every code against a canonical table. " +
-      "UDL Lens now does the second automatically, so a human only has to do the first.</p>";
+      "UDL Lens does the second automatically, so a human only has to do the first.</p>";
     scoreBox.focus();
   });
 
